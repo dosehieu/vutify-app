@@ -772,7 +772,6 @@ $btn-custom-heights: (
   input:-webkit-autofill,
   textarea:-webkit-autofill,
   select:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px map-deep-get($material-light, 'cards') inset !important;
     -webkit-text-fill-color: map-deep-get($material-light, 'text', 'secondary') !important;
   }
 }
@@ -780,7 +779,6 @@ $btn-custom-heights: (
   input:-webkit-autofill,
   textarea:-webkit-autofill,
   select:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px map-deep-get($material-dark, 'cards') inset !important;
     -webkit-text-fill-color: map-deep-get($material-dark, 'text', 'secondary') !important;
   }
 }
