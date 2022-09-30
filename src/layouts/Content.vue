@@ -31,16 +31,17 @@
             href="https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
             target="_blank"
             rel="nofollow"
+            class="icon-scale"
           >
             <v-icon class="ms-6 me-4">
               {{ icons.mdiGithub }}
             </v-icon>
           </a>
-          <theme-switcher></theme-switcher>
+          <theme-switcher class="icon-scale"></theme-switcher>
           <v-btn
             icon
             small
-            class="ms-3"
+            class="ms-3 icon-scale"
           >
             <v-icon>
               {{ icons.mdiBellOutline }}
@@ -137,10 +138,28 @@ export default {
       }
     }
   }
+  backdrop-filter: blur(6px);
+  position: fixed !important;
+  height: 80px !important;
+  margin-top: 15px !important;
 }
 
+@include theme(v-app-bar) using ($material){
+  background-color: map-deep-get($material, 'backdrop');
+}
+.v-app-bar--is-scrolled{
+  height: 64px !important;
+  margin-top: 0px !important;
+  transition: 200ms;
+}
+.v-main{
+  padding: 75px 0px 56px 260px !important;
+}
+.icon-scale :hover{
+  transform: scale(1.09);
+  transition: 200ms;
+}
 .boxed-container {
-  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
 }

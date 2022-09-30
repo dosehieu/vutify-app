@@ -122,7 +122,8 @@ $material-light: map-deep-merge(
   $material-light,
   (
     'app-bar': map-get($shades, 'white'),
-    'background': #f4f5fa,
+    'background': rgba(255, 255, 255, 1),
+    'backdrop': rgba(255, 255, 255, 0.8),
     'calendar': (
       'line-color': rgba(93, 89, 98, 0.1),
       // ! Value of `map-deep-get($material-dark, 'cards')`
@@ -267,6 +268,7 @@ $material-dark: map-deep-merge(
     // ! Value of `map-deep-get($material-dark, 'cards')`
       'app-bar': #312d4b,
     'background': #28243d,
+    'backdrop': rgba(40, 36, 61, 0.8),
     'cards': #312d4b,
     'calendar': (
       // ! Value of `map-deep-get($material-dark, 'cards')`
