@@ -36,8 +36,6 @@
     "@vuetify/cli-plugin-utils": "^0.0.9",
     "apexcharts": "^3.27.3",
     "core-js": "^3.6.5",
-    "simplebar": "^5.3.9",
-    "simplebar-vue": "^1.6.10",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.2",
     "vue-router": "^3.2.0",
