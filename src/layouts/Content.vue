@@ -152,9 +152,10 @@ export default {
   margin-top: 0px !important;
   transition: 200ms;
 }
-.v-main{
-  padding: 75px 0px 56px 260px !important;
+.app-content-container{
+  padding-top: 32px !important;
 }
+
 .icon-scale :hover{
   transform: scale(1.09);
   transition: 200ms;

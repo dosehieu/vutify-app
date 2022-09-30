@@ -1,9 +1,5 @@
 <template>
-  <simplebar
-    class="test"
-    data-simplebar-auto-hide="false"
-  >
-    <v-navigation-drawer
+  <v-navigation-drawer
       :value="isDrawerOpen"
       app
       floating
@@ -149,8 +145,7 @@
         ></nav-menu-link>
       </v-list>
       <a
-        href="https://themeselection.com/products/materio-vuetify-vuejs-admin-template"
-        target="_blank"
+        href="#"
         rel="nofollow"
       >
         <v-img
@@ -162,7 +157,6 @@
         ></v-img>
       </a>
     </v-navigation-drawer>
-  </simplebar>
 </template>
 
 <script>
@@ -177,18 +171,15 @@ import {
   mdiFormSelect,
   mdiAccountCogOutline,
 } from '@mdi/js'
-import simplebar from 'simplebar-vue'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
 import NavMenuLink from './components/NavMenuLink.vue'
-import 'simplebar/dist/simplebar.min.css'
 
 export default {
   components: {
     NavMenuSectionTitle,
     NavMenuGroup,
-    NavMenuLink,
-    simplebar,
+    NavMenuLink
   },
   props: {
     isDrawerOpen: {
