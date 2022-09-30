@@ -784,3 +784,7 @@ $btn-custom-heights: (
     -webkit-text-fill-color: map-deep-get($material-dark, 'text', 'secondary') !important;
   }
 }
+
+.v-application.theme--light .v-sheet.v-card:not(.v-sheet--outlined) {
+  box-shadow: 0 2px 10px 0 rgb(56 50 65 / 17%);
+}

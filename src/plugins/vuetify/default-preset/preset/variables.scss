@@ -122,7 +122,7 @@ $material-light: map-deep-merge(
   $material-light,
   (
     'app-bar': map-get($shades, 'white'),
-    'background': #ffffff,
+    'background': rgb(255, 255, 255),
     'backdrop': rgba(255, 255, 255, 0.8),
     'calendar': (
       'line-color': rgba(93, 89, 98, 0.1),
