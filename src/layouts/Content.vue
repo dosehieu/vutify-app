@@ -1,12 +1,17 @@
 <template>
   <v-app>
-    <vertical-nav-menu :is-drawer-open.sync="isDrawerOpen"></vertical-nav-menu>
+    <vertical-nav-menu
+      :is-drawer-open.sync="isDrawerOpen"
+      :is-icon-menu-open.sync="isIconMenuOpen"
+      @handleIconMenuOpen="isIconMenuOpen = !isIconMenuOpen"
+    ></vertical-nav-menu>
 
     <v-app-bar
       app
       flat
       absolute
       color="transparent"
+      :class="isIconMenuOpen ? 'app-bar-icon-menu-open' : ''"
     >
       <div class="boxed-container w-full">
         <div class="d-flex align-center mx-6">
@@ -52,7 +57,7 @@
       </div>
     </v-app-bar>
 
-    <v-main>
+    <v-main :class="isIconMenuOpen ? 'main-icon-menu-open' : ''">
       <div class="app-content-container boxed-container pa-6">
         <slot></slot>
       </div>
@@ -112,9 +117,13 @@ export default {
   },
   setup() {
     const isDrawerOpen = ref(null)
+    const isIconMenuOpen = ref(null)
+    const largeScreen = ref(1263)
 
     return {
       isDrawerOpen,
+      isIconMenuOpen,
+      largeScreen,
 
       // Icons
       icons: {
@@ -123,6 +132,19 @@ export default {
         mdiGithub,
       },
     }
+  },
+  created() {
+    window.addEventListener('resize', this.myEventHandler)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.myEventHandler)
+  },
+  methods: {
+    myEventHandler() {
+      if (window.innerWidth < this.largeScreen) {
+        this.isIconMenuOpen = false
+      }
+    },
   },
 }
 </script>
@@ -163,5 +185,12 @@ export default {
 .boxed-container {
   margin-left: auto;
   margin-right: auto;
+}
+.main-icon-menu-open{
+  padding: 64px 0px 56px 85px !important;
+}
+.app-bar-icon-menu-open{
+  left: 85px !important
+;
 }
 </style>

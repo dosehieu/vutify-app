@@ -189,8 +189,4 @@ export default {
     min-height: 2.5rem !important;
   }
 }
-.icon-scale :hover{
-  transform: scale(1.09);
-  transition: 200ms;
-}
 </style>

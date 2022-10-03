@@ -9,6 +9,7 @@
     @input="val => $emit('update:is-drawer-open', val)"
   >
     <div
+      class="h-full"
       @mouseleave="mouseLeaveDrawer"
       @mouseenter="mouseOverDrawer"
     >
@@ -40,153 +41,179 @@
         </router-link>
         <v-btn
           icon
-          :class="`ms-3 icon-scale ${isIconMenuOpen ? 'icon-reverse' : ''}`"
-          @click="isIconMenuOpen = !isIconMenuOpen"
+          :class="`d-none d-lg-block ms-3 icon-scale ${isIconMenuOpen ? 'icon-reverse' : ''}`"
+          @click="handleIconMenuOpen"
         >
           <v-icon>
             {{ icons.mdiChevronDoubleRight }}
           </v-icon>
         </v-btn>
       </div>
-    </div>
-    <perfect-scrollbar>
-      <!-- Navigation Items -->
-      <v-list
-        expand
-        shaped
-        class="vertical-nav-menu-items pr-5"
-      >
-        <nav-menu-link
-          title="Dashboard"
-          :to="{ name: 'dashboard' }"
-          :icon="icons.mdiHomeOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Account Settings"
-          :to="{ name: 'pages-account-settings'}"
-          :icon="icons.mdiAccountCogOutline"
-        ></nav-menu-link>
-        <nav-menu-group
-          title="Pages"
-          :icon="icons.mdiFileOutline"
+      <perfect-scrollbar>
+        <!-- Navigation Items -->
+        <v-list
+          expand
+          shaped
+          class="vertical-nav-menu-items pr-5"
         >
-          <div
-            v-show="focusDrawer"
+          <nav-menu-link
+            title="Dashboard"
+            :to="{ name: 'dashboard' }"
+            :icon="icons.mdiHomeOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Account Settings"
+            :to="{ name: 'pages-account-settings'}"
+            :icon="icons.mdiAccountCogOutline"
+          ></nav-menu-link>
+          <nav-menu-group
+            title="Pages"
+            :icon="icons.mdiFileOutline"
+            class="group-level-1"
           >
-            <nav-menu-link
-              title="Login"
-              :to="{ name: 'pages-login' }"
-              target="_blank"
-            ></nav-menu-link>
-            <nav-menu-link
-              title="Register"
-              :to="{ name: 'pages-register' }"
-              target="_blank"
-            ></nav-menu-link>
-            <nav-menu-link
-              title="Error"
-              :to="{ name: 'error-404' }"
-              target="_blank"
-            ></nav-menu-link>
-          </div>
-        </nav-menu-group>
-        <nav-menu-section-title
-          v-show="focusDrawer"
-          title="USER INTERFACE"
-        ></nav-menu-section-title>
-        <v-icon
-          v-show="!focusDrawer"
-          class="section-icon"
-        >
-          {{ icons.mdiMinus }}
-        </v-icon>
-        <nav-menu-link
-          title="Typography"
-          :to="{ name: 'typography' }"
-          :icon="icons.mdiAlphaTBoxOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Icons"
-          :to="{ name: 'icons' }"
-          :icon="icons.mdiEyeOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Cards"
-          :to="{ name: 'cards' }"
-          :icon="icons.mdiCreditCardOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Tables"
-          :to="{ name: 'simple-table' }"
-          :icon="icons.mdiTable"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Form Layouts"
-          :to="{ name: 'form-layouts' }"
-          :icon="icons.mdiFormSelect"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Typography"
-          :to="{ name: 'typography' }"
-          :icon="icons.mdiAlphaTBoxOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Icons"
-          :to="{ name: 'icons' }"
-          :icon="icons.mdiEyeOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Cards"
-          :to="{ name: 'cards' }"
-          :icon="icons.mdiCreditCardOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Tables"
-          :to="{ name: 'simple-table' }"
-          :icon="icons.mdiTable"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Form Layouts"
-          :to="{ name: 'form-layouts' }"
-          :icon="icons.mdiFormSelect"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Typography"
-          :to="{ name: 'typography' }"
-          :icon="icons.mdiAlphaTBoxOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Icons"
-          :to="{ name: 'icons' }"
-          :icon="icons.mdiEyeOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Cards"
-          :to="{ name: 'cards' }"
-          :icon="icons.mdiCreditCardOutline"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Tables"
-          :to="{ name: 'simple-table' }"
-          :icon="icons.mdiTable"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Form Layouts"
-          :to="{ name: 'form-layouts' }"
-          :icon="icons.mdiFormSelect"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Form Layouts"
-          :to="{ name: 'form-layouts' }"
-          :icon="icons.mdiFormSelect"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Form Layouts"
-          :to="{ name: 'form-layouts' }"
-          :icon="icons.mdiFormSelect"
-        ></nav-menu-link>
-      </v-list>
-    </perfect-scrollbar>
+            <div
+              v-show="focusDrawer"
+            >
+              <nav-menu-link
+                title="Login"
+                :to="{ name: 'pages-login' }"
+                target="_blank"
+              ></nav-menu-link>
+              <nav-menu-link
+                title="Register"
+                :to="{ name: 'pages-register' }"
+                target="_blank"
+              ></nav-menu-link>
+              <nav-menu-link
+                title="Error"
+                :to="{ name: 'error-404' }"
+                target="_blank"
+              ></nav-menu-link>
+              <nav-menu-group
+                title="Pages"
+                :icon="icons.mdiFileOutline"
+                class="group-level-2"
+              >
+                <div
+                  v-show="focusDrawer"
+                >
+                  <nav-menu-link
+                    title="Login"
+                    :to="{ name: 'pages-login' }"
+                    target="_blank"
+                  ></nav-menu-link>
+                  <nav-menu-link
+                    title="Register"
+                    :to="{ name: 'pages-register' }"
+                    target="_blank"
+                  ></nav-menu-link>
+                  <nav-menu-link
+                    title="Error"
+                    :to="{ name: 'error-404' }"
+                    target="_blank"
+                  ></nav-menu-link>
+                </div>
+              </nav-menu-group>
+            </div>
+          </nav-menu-group>
+          <nav-menu-section-title
+            v-show="focusDrawer"
+            title="USER INTERFACE"
+          ></nav-menu-section-title>
+          <v-icon
+            v-show="!focusDrawer"
+            class="section-icon"
+          >
+            {{ icons.mdiMinus }}
+          </v-icon>
+          <nav-menu-link
+            title="Typography"
+            :to="{ name: 'typography' }"
+            :icon="icons.mdiAlphaTBoxOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Icons"
+            :to="{ name: 'icons' }"
+            :icon="icons.mdiEyeOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Cards"
+            :to="{ name: 'cards' }"
+            :icon="icons.mdiCreditCardOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Tables"
+            :to="{ name: 'simple-table' }"
+            :icon="icons.mdiTable"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Form Layouts"
+            :to="{ name: 'form-layouts' }"
+            :icon="icons.mdiFormSelect"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Typography"
+            :to="{ name: 'typography' }"
+            :icon="icons.mdiAlphaTBoxOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Icons"
+            :to="{ name: 'icons' }"
+            :icon="icons.mdiEyeOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Cards"
+            :to="{ name: 'cards' }"
+            :icon="icons.mdiCreditCardOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Tables"
+            :to="{ name: 'simple-table' }"
+            :icon="icons.mdiTable"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Form Layouts"
+            :to="{ name: 'form-layouts' }"
+            :icon="icons.mdiFormSelect"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Typography"
+            :to="{ name: 'typography' }"
+            :icon="icons.mdiAlphaTBoxOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Icons"
+            :to="{ name: 'icons' }"
+            :icon="icons.mdiEyeOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Cards"
+            :to="{ name: 'cards' }"
+            :icon="icons.mdiCreditCardOutline"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Tables"
+            :to="{ name: 'simple-table' }"
+            :icon="icons.mdiTable"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Form Layouts"
+            :to="{ name: 'form-layouts' }"
+            :icon="icons.mdiFormSelect"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Form Layouts"
+            :to="{ name: 'form-layouts' }"
+            :icon="icons.mdiFormSelect"
+          ></nav-menu-link>
+          <nav-menu-link
+            title="Form Layouts"
+            :to="{ name: 'form-layouts' }"
+            :icon="icons.mdiFormSelect"
+          ></nav-menu-link>
+        </v-list>
+      </perfect-scrollbar>
+    </div>
   </v-navigation-drawer>
 </template>
 
@@ -223,6 +250,10 @@ export default {
       type: Boolean,
       default: null,
     },
+    isIconMenuOpen: {
+      type: Boolean,
+      default: null,
+    },
   },
   methods: {
     mouseLeaveDrawer() {
@@ -235,13 +266,14 @@ export default {
         this.focusDrawer = true
       }
     },
+    handleIconMenuOpen() {
+      this.$emit('handleIconMenuOpen')
+    },
   },
   setup() {
-    const isIconMenuOpen = ref(null)
     const focusDrawer = ref(true)
 
     return {
-      isIconMenuOpen,
       focusDrawer,
       icons: {
         mdiHomeOutline,
@@ -269,6 +301,15 @@ export default {
 }
 .icon-menu-open:hover {
   width: 260px !important;
+}
+.app-navigation-menu .group-level-1 .v-list-item {
+  padding-left: 40px;
+}
+.app-navigation-menu .group-level-2{
+  padding-left: 20px;
+}
+.app-navigation-menu .group-level-2 .v-list-item {
+  padding-left: 45px;
 }
 .app-title {
   font-size: 1.25rem;
