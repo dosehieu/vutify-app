@@ -786,3 +786,7 @@ $btn-custom-heights: (
 .v-application.theme--light .v-sheet.v-card:not(.v-sheet--outlined) {
   box-shadow: 0 2px 10px 0 rgb(56 50 65 / 17%);
 }
+
+.v-navigation-drawer__content {
+  overflow-y: hidden !important;
+}
