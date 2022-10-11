@@ -1,81 +1,56 @@
 <template>
-  <v-navigation-drawer
-    :value="isDrawerOpen"
-    app
-    floating
-    :width="260"
-    :class="`app-navigation-menu ${isMenuIconOpen ? 'icon-menu-open' : '' }`"
-    :right="$vuetify.rtl"
-    @input="val => $emit('update:is-drawer-open', val)"
-  >
-    <div
-      class="h-full"
-      @mouseleave="mouseLeaveDrawer"
-      @mouseenter="mouseOverDrawer"
+  <div>
+    <v-list
+      v-for="item in menuTreeItem"
+      :key="item.id"
+      expand
+      shaped
+      class="vertical-nav-menu-items pr-5"
     >
-      <!-- Navigation Header -->
-      <div
-        class="vertical-nav-header d-flex justify-space-between items-center ps-6 pe-5 pt-5 pb-2"
+      <nav-menu-link
+        v-if="item.type=='item'"
+        :title="item.title"
+        :to="{ name: item.routes }"
+        :icon="item.icon"
+        :target="item.target"
+      ></nav-menu-link>
+      <nav-menu-section-title
+        v-if="item.type=='section'"
+        v-show="isFocusDrawer"
+        :title="item.title"
+      ></nav-menu-section-title>
+      <v-icon
+        v-if="item.type=='section'"
+        v-show="!isFocusDrawer"
+        class="section-icon"
       >
-        <router-link
-          to="/"
-          class="d-flex align-center text-decoration-none"
+        {{ icons.mdiMinus }}
+      </v-icon>
+      <nav-menu-group
+        v-if="item.type=='group'"
+        :title="item.title"
+        :icon="item.icon"
+        :level="level"
+      >
+        <div
+          v-show="isFocusDrawer"
         >
-          <v-img
-            :src="require('@/assets/images/logos/logo.svg')"
-            max-height="30px"
-            max-width="30px"
-            alt="logo"
-            contain
-            eager
-            class="app-logo me-3"
-          ></v-img>
-          <v-slide-x-transition>
-            <h2
-              v-show="isFocusDrawer"
-              class="app-title text--primary"
-            >
-              MATERIO
-            </h2>
-          </v-slide-x-transition>
-        </router-link>
-        <v-btn
-          icon
-          :class="`d-none d-lg-block ms-3 icon-scale ${isMenuIconOpen ? 'icon-reverse' : ''}`"
-          @click="handleMenuIconOpen"
-        >
-          <v-icon>
-            {{ icons.mdiChevronDoubleRight }}
-          </v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          class="d-block d-lg-none ms-3 icon-scale "
-        >
-          <v-icon>
-            {{ icons.mdiClose }}
-          </v-icon>
-        </v-btn>
-      </div>
-
-      <perfect-scrollbar>
-        <!-- Navigation Items -->
-        <NavRecursiveMenu
-          :is-drawer-open.sync="isDrawerOpen"
-          :is-menu-icon-open.sync="isMenuIconOpen"
-          :is-focus-drawer.sync="isFocusDrawer"
-          :menu-tree-item.sync="menuTreeItem"
-          :level="level"
-          @handleMenuIconOpen="() => $emit('handleMenuIconOpen')"
-          @handleFocusDrawer="() => $emit('handleFocusDrawer')"
-        ></NavRecursiveMenu>
-      </perfect-scrollbar>
-    </div>
-  </v-navigation-drawer>
+          <NavRecursiveMenu
+            :is-drawer-open.sync="isDrawerOpen"
+            :is-menu-icon-open.sync="isMenuIconOpen"
+            :is-focus-drawer.sync="isFocusDrawer"
+            :menu-tree-item.sync="item.children"
+            :level="level + 1"
+            @handleMenuIconOpen="() => $emit('handleMenuIconOpen')"
+            @handleFocusDrawer="() => $emit('handleFocusDrawer')"
+          ></NavRecursiveMenu>
+        </div>
+      </nav-menu-group>
+    </v-list>
+  </div>
 </template>
 
 <script>
-// eslint-disable-next-line object-curly-newline
 import {
   mdiHomeOutline,
   mdiAlphaTBoxOutline,
@@ -89,14 +64,18 @@ import {
   mdiChevronDoubleLeft,
   mdiMinus,
   mdiClose,
+  mdiCircleOutline,
 } from '@mdi/js'
-import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import NavRecursiveMenu from './components/NavRecursiveMenu.vue'
+import NavMenuSectionTitle from './NavMenuSectionTitle.vue'
+import NavMenuGroup from './NavMenuGroup.vue'
+import NavMenuLink from './NavMenuLink.vue'
 
 export default {
+  name: 'NavRecursiveMenu',
   components: {
-    NavRecursiveMenu,
-    PerfectScrollbar,
+    NavMenuSectionTitle,
+    NavMenuGroup,
+    NavMenuLink,
   },
   props: {
     isDrawerOpen: {
@@ -113,6 +92,10 @@ export default {
     },
     menuTreeItem: {
       type: Array,
+      default: null,
+    },
+    level: {
+      type: Number,
       default: null,
     },
   },
@@ -133,7 +116,6 @@ export default {
   },
   setup() {
     return {
-      level: 1,
       icons: {
         mdiHomeOutline,
         mdiAlphaTBoxOutline,
@@ -147,6 +129,7 @@ export default {
         mdiChevronDoubleLeft,
         mdiMinus,
         mdiClose,
+        mdiCircleOutline,
       },
     }
   },
@@ -156,6 +139,16 @@ export default {
 <style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>
 
 <style lang="scss" scoped>
+
+.app-navigation-menu .v-list-item {
+    padding-left: 22px;
+    margin-top: 0.375rem;
+    height: 44px;
+    min-height: 44px;
+}
+.app-navigation-menu .v-list {
+    padding: 0;
+}
 .icon-menu-open {
   width: 85px !important;
 }

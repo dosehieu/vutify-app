@@ -2,8 +2,11 @@
   <v-app>
     <vertical-nav-menu
       :is-drawer-open.sync="isDrawerOpen"
-      :is-icon-menu-open.sync="isIconMenuOpen"
-      @handleIconMenuOpen="isIconMenuOpen = !isIconMenuOpen"
+      :is-menu-icon-open.sync="isMenuIconOpen"
+      :is-focus-drawer.sync="isFocusDrawer"
+      :menu-tree-item.sync="menuTreeItem"
+      @handleMenuIconOpen="isMenuIconOpen = !isMenuIconOpen"
+      @handleFocusDrawer="(val) => { isFocusDrawer = val}"
     ></vertical-nav-menu>
 
     <v-app-bar
@@ -11,7 +14,7 @@
       flat
       absolute
       color="transparent"
-      :class="isIconMenuOpen ? 'app-bar-icon-menu-open' : ''"
+      :class="isMenuIconOpen ? 'app-bar-icon-menu-open' : ''"
     >
       <div class="boxed-container w-full">
         <div class="d-flex align-center mx-6">
@@ -57,8 +60,12 @@
       </div>
     </v-app-bar>
 
-    <v-main :class="isIconMenuOpen ? 'main-icon-menu-open' : ''">
+    <v-main :class="isMenuIconOpen ? 'main-icon-menu-open' : ''">
       <div class="app-content-container boxed-container pa-6">
+        <v-breadcrumbs
+          :items="items"
+          class="pt-0"
+        ></v-breadcrumbs>
         <slot></slot>
       </div>
     </v-main>
@@ -108,6 +115,7 @@ import { mdiMagnify, mdiBellOutline, mdiGithub } from '@mdi/js'
 import VerticalNavMenu from './components/vertical-nav-menu/VerticalNavMenu.vue'
 import ThemeSwitcher from './components/ThemeSwitcher.vue'
 import AppBarUserMenu from './components/AppBarUserMenu.vue'
+import menuTree from './menuTree'
 
 export default {
   components: {
@@ -115,15 +123,33 @@ export default {
     ThemeSwitcher,
     AppBarUserMenu,
   },
+  data: () => ({
+    items: [
+      {
+        text: 'Home',
+        disabled: false,
+        href: 'dashboard',
+      },
+      {
+        text: 'Typography',
+        disabled: true,
+        href: 'typography',
+      },
+    ],
+  }),
   setup() {
     const isDrawerOpen = ref(null)
-    const isIconMenuOpen = ref(null)
+    const isMenuIconOpen = ref(null)
+    const isFocusDrawer = ref(true)
     const largeScreen = ref(1263)
+    const menuTreeItem = ref(menuTree)
 
     return {
       isDrawerOpen,
-      isIconMenuOpen,
+      isMenuIconOpen,
       largeScreen,
+      isFocusDrawer,
+      menuTreeItem,
 
       // Icons
       icons: {
@@ -142,7 +168,8 @@ export default {
   methods: {
     myEventHandler() {
       if (window.innerWidth < this.largeScreen) {
-        this.isIconMenuOpen = false
+        this.isMenuIconOpen = false
+        this.isFocusDrawer = true
       }
     },
   },
@@ -178,10 +205,6 @@ export default {
   padding-top: 32px !important;
 }
 
-.icon-scale :hover{
-  transform: scale(1.09);
-  transition: 200ms;
-}
 .boxed-container {
   margin-left: auto;
   margin-right: auto;
