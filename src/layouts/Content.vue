@@ -178,6 +178,7 @@ export default {
 
 <style lang="scss" scoped>
 .v-app-bar ::v-deep {
+  transition: 100ms;
   .v-toolbar__content {
     padding: 0;
 
@@ -199,7 +200,7 @@ export default {
 .v-app-bar--is-scrolled{
   height: 64px !important;
   margin-top: 0px !important;
-  transition: 200ms;
+  transition: 200ms !important;
 }
 .app-content-container{
   padding-top: 32px !important;
@@ -214,6 +215,5 @@ export default {
 }
 .app-bar-icon-menu-open{
   left: 85px !important
-;
 }
 </style>
